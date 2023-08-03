@@ -14,5 +14,5 @@ func main() {
 	router.OPTIONS("/v1/chat/completions", optionsHandler)
 	router.POST("/v1/chat/completions", authorization, completionsHandler)
 
-	router.Run("0.0.0.0:1024")
+	router.Run("0.0.0.0:8080")
 }

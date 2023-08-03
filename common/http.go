@@ -1,6 +1,7 @@
 package common
 
 import tls_client "github.com/bogdanfinn/tls-client"
+import "os"
 
 func NewClient() tls_client.HttpClient {
 	jar := tls_client.NewCookieJar()
@@ -10,8 +11,12 @@ func NewClient() tls_client.HttpClient {
 		tls_client.WithNotFollowRedirects(),
 		tls_client.WithCookieJar(jar),
 		tls_client.WithInsecureSkipVerify(),
-		tls_client.WithProxyUrl("http://127.0.0.1:7890"),
 	}
+
+	if proxyURL, exists := os.LookupEnv("PROXY_URL"); exists && proxyURL != "" {
+		options = append(options, tls_client.WithProxyUrl(proxyURL))
+	}
+
 	client, _ := tls_client.NewHttpClient(tls_client.NewNoopLogger(), options...)
 
 	return client
