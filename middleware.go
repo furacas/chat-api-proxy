@@ -18,8 +18,8 @@ var API_KEYS map[string]bool
 func authorization(c *gin.Context) {
 	if API_KEYS == nil {
 		API_KEYS = make(map[string]bool)
-		if _, err := os.Stat("api_keys.txt"); err == nil {
-			file, _ := os.Open("api_keys.txt")
+		if _, err := os.Stat("config/api_keys.txt"); err == nil {
+			file, _ := os.Open("config/api_keys.txt")
 			defer file.Close()
 			scanner := bufio.NewScanner(file)
 			for scanner.Scan() {
