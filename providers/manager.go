@@ -17,9 +17,9 @@ var allProviders = []Provider{
 }
 
 func PollProviders(c *gin.Context, originalRequest api.APIRequest) error {
-	rand.Seed(time.Now().UnixNano())
-
-	indices := rand.Perm(len(allProviders))
+	src := rand.NewSource(time.Now().UnixNano())
+	r := rand.New(src)
+	indices := r.Perm(len(allProviders))
 
 	var lastError error
 
