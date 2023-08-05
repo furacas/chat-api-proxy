@@ -3,12 +3,13 @@ package fakeopen
 import (
 	"bytes"
 	"chat-api-proxy/api"
+	"chat-api-proxy/common"
 	"context"
 	"encoding/json"
+	http "github.com/bogdanfinn/fhttp"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/semaphore"
 	"io"
-	"net/http"
 	"time"
 )
 
@@ -41,8 +42,7 @@ func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRe
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer pk-this-is-a-real-free-pool-token-for-everyone")
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
+	resp, err := common.NewClient().Do(req)
 
 	defer resp.Body.Close()
 
