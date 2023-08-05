@@ -4,18 +4,28 @@ import (
 	"chat-api-proxy/api"
 	"chat-api-proxy/providers/chatgpt"
 	"chat-api-proxy/providers/fakeopen"
+	"chat-api-proxy/providers/xyhelper"
 	"github.com/gin-gonic/gin"
+	"math/rand"
+	"time"
 )
 
 var allProviders = []Provider{
 	&fakeopen.FakeOpenProvider{},
+	&xyhelper.XyHelperProvider{},
 	&chatgpt.AccountProvider{},
 }
 
 func PollProviders(c *gin.Context, originalRequest api.APIRequest) error {
+	rand.Seed(time.Now().UnixNano())
+
+	indices := rand.Perm(len(allProviders))
+
 	var lastError error
 
-	for _, provider := range allProviders {
+	for _, index := range indices {
+		provider := allProviders[index]
+
 		err := provider.SendRequest(c, originalRequest)
 		if err != nil {
 			lastError = err

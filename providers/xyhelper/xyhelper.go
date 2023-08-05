@@ -1,4 +1,4 @@
-package fakeopen
+package xyhelper
 
 import (
 	"bytes"
@@ -14,11 +14,11 @@ import (
 	"time"
 )
 
-type FakeOpenProvider struct {
+type XyHelperProvider struct {
 	sem *semaphore.Weighted
 }
 
-func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRequest) error {
+func (p *XyHelperProvider) SendRequest(c *gin.Context, originalRequest api.APIRequest) error {
 	if p.sem == nil {
 		p.sem = semaphore.NewWeighted(1)
 	}
@@ -35,14 +35,13 @@ func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRe
 
 	jsonData, _ := json.Marshal(originalRequest)
 
-	req, err := http.NewRequest("POST", "https://ai.fakeopen.com/v1/chat/completions", bytes.NewBuffer(jsonData))
+	req, err := http.NewRequest("POST", "https://api.xyhelper.cn/v1/chat/completions", bytes.NewBuffer(jsonData))
 	if err != nil {
 		return err
 	}
 
 	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer pk-this-is-a-real-free-pool-token-for-everyone")
-	//req.Header.Set("Accept-Encoding", "*/*")
+	req.Header.Set("Authorization", "Bearer sk-api-xyhelper-cn-free-token-for-everyone-xyhelper")
 
 	resp, err := common.NewClient().Do(req)
 
@@ -52,7 +51,7 @@ func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRe
 		return errors.New("error response code")
 	}
 
-	c.Header("X-Provider", "fakeopen")
+	c.Header("X-Provider", "xyhelper")
 	c.Status(resp.StatusCode)
 
 	buf := make([]byte, 256) // 1 byte buffer
