@@ -6,6 +6,7 @@ import (
 	"chat-api-proxy/common"
 	"context"
 	"encoding/json"
+	"errors"
 	http "github.com/bogdanfinn/fhttp"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/sync/semaphore"
@@ -45,6 +46,10 @@ func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRe
 	resp, err := common.NewClient().Do(req)
 
 	defer resp.Body.Close()
+
+	if resp.StatusCode != 200 {
+		return errors.New("error response code")
+	}
 
 	for k, vv := range resp.Header {
 		for _, v := range vv {
