@@ -34,7 +34,7 @@ func authorization(c *gin.Context) {
 		if c.Request.Header.Get("Authorization") == "" {
 			c.JSON(401, gin.H{"error": "No API key provided."})
 		} else {
-			c.JSON(401, gin.H{"error": "Invalid API key."})
+			c.JSON(401, gin.H{"error": "Invalid API key " + c.Request.Header.Get("Authorization")})
 		}
 		c.Abort()
 		return
