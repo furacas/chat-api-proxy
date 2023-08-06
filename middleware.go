@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"github.com/gin-gonic/gin"
 	"os"
+	"strings"
 )
 
 func cors(c *gin.Context) {
@@ -18,6 +19,16 @@ var API_KEYS map[string]bool
 func authorization(c *gin.Context) {
 	if API_KEYS == nil {
 		API_KEYS = make(map[string]bool)
+
+		envKeys := os.Getenv("API_KEYS")
+		if envKeys != "" {
+			for _, key := range strings.Split(envKeys, ",") {
+				if key != "" {
+					API_KEYS["Bearer "+key] = true
+				}
+			}
+		}
+
 		if _, err := os.Stat("config/api_keys.txt"); err == nil {
 			file, _ := os.Open("config/api_keys.txt")
 			defer file.Close()
@@ -34,7 +45,7 @@ func authorization(c *gin.Context) {
 		if c.Request.Header.Get("Authorization") == "" {
 			c.JSON(401, gin.H{"error": "No API key provided."})
 		} else {
-			c.JSON(401, gin.H{"error": "Invalid API key " + c.Request.Header.Get("Authorization")})
+			c.JSON(401, gin.H{"error": "Invalid API key."})
 		}
 		c.Abort()
 		return

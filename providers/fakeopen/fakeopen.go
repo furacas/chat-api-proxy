@@ -42,7 +42,6 @@ func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRe
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer pk-this-is-a-real-free-pool-token-for-everyone")
-	//req.Header.Set("Accept-Encoding", "*/*")
 
 	resp, err := common.NewClient().Do(req)
 
