@@ -18,6 +18,10 @@ type XyHelperProvider struct {
 	sem *semaphore.Weighted
 }
 
+func (p *XyHelperProvider) Name() string {
+	return "xyhelper"
+}
+
 func (p *XyHelperProvider) SendRequest(c *gin.Context, originalRequest api.APIRequest) error {
 	if p.sem == nil {
 		p.sem = semaphore.NewWeighted(1)

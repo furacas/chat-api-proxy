@@ -43,3 +43,13 @@ func completionsHandler(c *gin.Context) {
 	}
 
 }
+
+func providerStatHandler(c *gin.Context) {
+	snapshot := make(map[string]*providers.ProviderStat)
+	providers.ProviderStats.Range(func(key, value interface{}) bool {
+		snapshot[key.(string)] = value.(*providers.ProviderStat)
+		return true
+	})
+
+	c.JSON(200, snapshot)
+}

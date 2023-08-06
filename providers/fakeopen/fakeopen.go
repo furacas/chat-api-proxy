@@ -18,6 +18,10 @@ type FakeOpenProvider struct {
 	sem *semaphore.Weighted
 }
 
+func (p *FakeOpenProvider) Name() string {
+	return "fakeopen"
+}
+
 func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRequest) error {
 	if p.sem == nil {
 		p.sem = semaphore.NewWeighted(1)

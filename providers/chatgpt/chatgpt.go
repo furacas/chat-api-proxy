@@ -14,11 +14,15 @@ import (
 	"strings"
 )
 
-type AccountProvider struct {
+type ChatGPTProvider struct {
 	sem *semaphore.Weighted
 }
 
-func (p *AccountProvider) SendRequest(c *gin.Context, originalRequest api.APIRequest) error {
+func (p *ChatGPTProvider) Name() string {
+	return "chatgpt"
+}
+
+func (p *ChatGPTProvider) SendRequest(c *gin.Context, originalRequest api.APIRequest) error {
 
 	token, err := GetToken()
 
