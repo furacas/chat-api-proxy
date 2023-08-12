@@ -96,5 +96,8 @@ func updateToken() {
 }
 
 func init() {
-	go updateToken()
+	if os.Getenv("CHATGPT_ENABLED") != "false" {
+		go updateToken()
+	}
+
 }

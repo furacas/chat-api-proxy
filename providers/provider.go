@@ -5,8 +5,10 @@ import (
 	"chat-api-proxy/providers/chatgpt"
 	"chat-api-proxy/providers/fakeopen"
 	"chat-api-proxy/providers/xyhelper"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"math/rand"
+	"os"
 	"time"
 )
 
@@ -16,13 +18,39 @@ type Provider interface {
 	Name() string
 }
 
-var allProviders = []Provider{
-	&fakeopen.FakeOpenProvider{},
-	&xyhelper.XyHelperProvider{},
-	&chatgpt.ChatGPTProvider{},
+var allProviders []Provider
+
+func init() {
+	if os.Getenv("FAKEOPEN_ENABLED") != "false" {
+		allProviders = append(allProviders, &fakeopen.FakeOpenProvider{})
+	}
+	if os.Getenv("XYHELPER_ENABLED") != "false" {
+		allProviders = append(allProviders, &xyhelper.XyHelperProvider{})
+	}
+	if os.Getenv("CHATGPT_ENABLED") != "false" {
+		allProviders = append(allProviders, &chatgpt.ChatGPTProvider{})
+	}
 }
 
 func PollProviders(c *gin.Context, originalRequest api.APIRequest) error {
+	specifiedProvider := c.GetHeader("X-Provider")
+
+	if specifiedProvider != "" {
+		// Iterate over all providers to find a match
+		for _, provider := range allProviders {
+			if provider.Name() == specifiedProvider {
+				err := provider.SendRequest(c, originalRequest)
+				if err != nil {
+					return err
+				}
+				updateStat(specifiedProvider, true)
+				return nil
+			}
+		}
+		// If specified provider isn't found among all providers
+		return fmt.Errorf("Specified provider '%s' not found", specifiedProvider)
+	}
+
 	src := rand.NewSource(time.Now().UnixNano())
 	r := rand.New(src)
 	indices := r.Perm(len(allProviders))
