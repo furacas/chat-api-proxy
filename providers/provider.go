@@ -2,6 +2,7 @@ package providers
 
 import (
 	"chat-api-proxy/api"
+	"chat-api-proxy/providers/ava"
 	"chat-api-proxy/providers/chatgpt"
 	"chat-api-proxy/providers/fakeopen"
 	"chat-api-proxy/providers/xyhelper"
@@ -29,6 +30,9 @@ func init() {
 	}
 	if os.Getenv("CHATGPT_ENABLED") != "false" {
 		allProviders = append(allProviders, &chatgpt.ChatGPTProvider{})
+	}
+	if os.Getenv("AVA_ENABLED") != "false" {
+		allProviders = append(allProviders, &ava.AvaProvider{})
 	}
 }
 

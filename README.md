@@ -1,12 +1,13 @@
 # Chat-API-Proxy
 
 ## 项目介绍
-这是一个gpt-3.5-turbo api的代理程序，将请求转发到一些公益站点，实现api免费使用。
+这是一个免费的gpt api的代理程序，将请求转发到一些公益或白嫖站点，实现api免费使用。
 
 ## 服务提供者
 [fakeopen](https://ai.fakeopen.com/)  
 [xyhelper](https://xyhelper.cn/)  
-chatgpt
+chatgpt  
+[ava](https://ava-ai-ef611.web.app/)
 ## 使用方法
 
 ```bash
@@ -32,6 +33,21 @@ curl --location 'http://127.0.0.1:8080/v1/chat/completions' \
     "stream": true
 }'
 ```
+
+## 高级配置
+
+### provider
+在Reqiest Header里面传入`X-Provider`可以指定provider
+### 不启用部分provider
+
+通过设置环境变量来控制
+
+| 变量名            | provider名   |
+|-----------------|-------------|
+| FAKEOPEN_ENABLED | fakeopen  |
+| XYHELPER_ENABLED | xyhelper  |
+| CHATGPT_ENABLED | chatgpt  |
+| AVA_ENABLED | ava  |
 
 
 
