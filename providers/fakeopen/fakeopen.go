@@ -55,6 +55,12 @@ func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRe
 		return errors.New("error response code")
 	}
 
+	if originalRequest.Stream {
+		c.Header("Content-Type", "text/event-stream")
+	} else {
+		c.Header("Content-Type", "application/json")
+	}
+
 	c.Header("X-Provider", "fakeopen")
 	c.Status(resp.StatusCode)
 
