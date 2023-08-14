@@ -1,23 +1,24 @@
-package fakeopen
+package chatanywhere
 
 import (
 	"chat-api-proxy/api"
 	"chat-api-proxy/common"
-	"context"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/net/context"
 	"golang.org/x/sync/semaphore"
+	"os"
 	"time"
 )
 
-type FakeOpenProvider struct {
+type ChatAnyWhereProvider struct {
 	sem *semaphore.Weighted
 }
 
-func (p *FakeOpenProvider) Name() string {
-	return "fakeopen"
+func (p *ChatAnyWhereProvider) Name() string {
+	return "chatanywhere"
 }
 
-func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRequest) error {
+func (p *ChatAnyWhereProvider) SendRequest(c *gin.Context, originalRequest api.APIRequest) error {
 	if p.sem == nil {
 		p.sem = semaphore.NewWeighted(1)
 	}
@@ -32,5 +33,5 @@ func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRe
 	}
 	defer p.sem.Release(1)
 
-	return common.SendRequest(c, originalRequest, "https://ai.fakeopen.com/v1/chat/completions", "pk-this-is-a-real-free-pool-token-for-everyone")
+	return common.SendRequest(c, originalRequest, "https://api.chatanywhere.cn/v1/chat/completions", os.Getenv("CHATANYWHERE_KEY"))
 }

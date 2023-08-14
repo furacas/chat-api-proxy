@@ -8,6 +8,7 @@
 [xyhelper](https://xyhelper.cn/)  
 chatgpt  
 [ava](https://ava-ai-ef611.web.app/)
+[chatanywhere](https://github.com/chatanywhere/GPT_API_free)
 ## 使用方法
 
 ```bash
@@ -38,16 +39,18 @@ curl --location 'http://127.0.0.1:8080/v1/chat/completions' \
 
 ### provider
 在Reqiest Header里面传入`X-Provider`可以指定provider
-### 不启用部分provider
+### 环境变量
 
-通过设置环境变量来控制
 
-| 变量名            | provider名   |
-|-----------------|-------------|
-| FAKEOPEN_ENABLED | fakeopen  |
-| XYHELPER_ENABLED | xyhelper  |
-| CHATGPT_ENABLED | chatgpt  |
-| AVA_ENABLED | ava  |
+| 变量名              | 默认  | 备注                                                       |
+|------------------|-----|----------------------------------------------------------|
+| FAKEOPEN_ENABLED | true | 启用[fakeopen](https://ai.fakeopen.com/)                                                        |
+| XYHELPER_ENABLED |  true    | 启用[xyhelper](https://xyhelper.cn/)                                               |
+| CHATGPT_ENABLED  |   true   | 启用chatgpt                                                |
+| AVA_ENABLED      |  true    | 启用[ava](https://ava-ai-ef611.web.app/)                                                       |
+| CHATANYWHERE_KEY      |      | [chatanywhere](https://github.com/chatanywhere/GPT_API_free) sk |
+
+
 
 
 

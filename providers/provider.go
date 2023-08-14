@@ -3,6 +3,7 @@ package providers
 import (
 	"chat-api-proxy/api"
 	"chat-api-proxy/providers/ava"
+	"chat-api-proxy/providers/chatanywhere"
 	"chat-api-proxy/providers/chatgpt"
 	"chat-api-proxy/providers/fakeopen"
 	"chat-api-proxy/providers/xyhelper"
@@ -33,6 +34,10 @@ func init() {
 	}
 	if os.Getenv("AVA_ENABLED") != "false" {
 		allProviders = append(allProviders, &ava.AvaProvider{})
+	}
+
+	if os.Getenv("CHATANYWHERE_KEY") != "" {
+		allProviders = append(allProviders, &chatanywhere.ChatAnyWhereProvider{})
 	}
 }
 
