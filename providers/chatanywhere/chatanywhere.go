@@ -33,5 +33,5 @@ func (p *ChatAnyWhereProvider) SendRequest(c *gin.Context, originalRequest api.A
 	}
 	defer p.sem.Release(1)
 
-	return common.SendRequest(c, originalRequest, "https://api.chatanywhere.cn/v1/chat/completions", os.Getenv("CHATANYWHERE_KEY"))
+	return common.SendRequest(c, originalRequest, "https://api.chatanywhere.cn/v1/chat/completions", os.Getenv("CHATANYWHERE_KEY"), p.Name())
 }

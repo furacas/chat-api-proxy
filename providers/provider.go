@@ -9,6 +9,7 @@ import (
 	"chat-api-proxy/providers/xyhelper"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"log"
 	"math/rand"
 	"os"
 	"time"
@@ -24,19 +25,24 @@ var allProviders []Provider
 
 func init() {
 	if os.Getenv("FAKEOPEN_ENABLED") != "false" {
+		log.Printf("FakeOpenProvider enabled")
 		allProviders = append(allProviders, &fakeopen.FakeOpenProvider{})
 	}
 	if os.Getenv("XYHELPER_ENABLED") != "false" {
+		log.Printf("XyHelperProvider enabled")
 		allProviders = append(allProviders, &xyhelper.XyHelperProvider{})
 	}
 	if os.Getenv("CHATGPT_ENABLED") != "false" {
+		log.Printf("ChatGPTProvider enabled")
 		allProviders = append(allProviders, &chatgpt.ChatGPTProvider{})
 	}
 	if os.Getenv("AVA_ENABLED") != "false" {
+		log.Printf("AvaProvider enabled")
 		allProviders = append(allProviders, &ava.AvaProvider{})
 	}
 
 	if os.Getenv("CHATANYWHERE_KEY") != "" {
+		log.Printf("ChatAnyWhereProvider enabled")
 		allProviders = append(allProviders, &chatanywhere.ChatAnyWhereProvider{})
 	}
 }

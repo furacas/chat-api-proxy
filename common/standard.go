@@ -10,7 +10,7 @@ import (
 	"io"
 )
 
-func SendRequest(c *gin.Context, originalRequest api.APIRequest, apiEnterPoint string, sk string) error {
+func SendRequest(c *gin.Context, originalRequest api.APIRequest, apiEnterPoint string, sk string, provider string) error {
 
 	jsonData, _ := json.Marshal(originalRequest)
 
@@ -35,7 +35,7 @@ func SendRequest(c *gin.Context, originalRequest api.APIRequest, apiEnterPoint s
 	} else {
 		c.Header("Content-Type", "application/json")
 	}
-	c.Header("X-Provider", "xyhelper")
+	c.Header("X-Provider", provider)
 	c.Status(resp.StatusCode)
 
 	buf := make([]byte, 256) // 1 byte buffer

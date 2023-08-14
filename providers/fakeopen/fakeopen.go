@@ -32,5 +32,5 @@ func (p *FakeOpenProvider) SendRequest(c *gin.Context, originalRequest api.APIRe
 	}
 	defer p.sem.Release(1)
 
-	return common.SendRequest(c, originalRequest, "https://ai.fakeopen.com/v1/chat/completions", "pk-this-is-a-real-free-pool-token-for-everyone")
+	return common.SendRequest(c, originalRequest, "https://ai.fakeopen.com/v1/chat/completions", "pk-this-is-a-real-free-pool-token-for-everyone", p.Name())
 }

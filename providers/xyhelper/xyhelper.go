@@ -32,5 +32,5 @@ func (p *XyHelperProvider) SendRequest(c *gin.Context, originalRequest api.APIRe
 	}
 	defer p.sem.Release(1)
 
-	return common.SendRequest(c, originalRequest, "https://api.xyhelper.cn/v1/chat/completions", "sk-api-xyhelper-cn-free-token-for-everyone-xyhelper")
+	return common.SendRequest(c, originalRequest, "https://api.xyhelper.cn/v1/chat/completions", "sk-api-xyhelper-cn-free-token-for-everyone-xyhelper", p.Name())
 }
