@@ -5,6 +5,7 @@ import (
 	"chat-api-proxy/providers/ava"
 	"chat-api-proxy/providers/chatanywhere"
 	"chat-api-proxy/providers/chatgpt"
+	"chat-api-proxy/providers/chimera"
 	"chat-api-proxy/providers/fakeopen"
 	"chat-api-proxy/providers/xyhelper"
 	"fmt"
@@ -45,6 +46,12 @@ func init() {
 		log.Printf("ChatAnyWhereProvider enabled")
 		allProviders = append(allProviders, &chatanywhere.ChatAnyWhereProvider{})
 	}
+
+	if os.Getenv("CHIMERA_KEY") != "" {
+		log.Printf("ChimeraProvider enabled")
+		allProviders = append(allProviders, &chimera.ChimeraProvider{})
+	}
+
 }
 
 func PollProviders(c *gin.Context, originalRequest api.APIRequest) error {
