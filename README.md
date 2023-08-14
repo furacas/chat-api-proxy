@@ -7,7 +7,7 @@
 [fakeopen](https://ai.fakeopen.com/)  
 [xyhelper](https://xyhelper.cn/)  
 chatgpt  
-[ava](https://ava-ai-ef611.web.app/)
+[ava](https://ava-ai-ef611.web.app/)  
 [chatanywhere](https://github.com/chatanywhere/GPT_API_free)
 ## 使用方法
 
@@ -38,7 +38,8 @@ curl --location 'http://127.0.0.1:8080/v1/chat/completions' \
 ## 高级配置
 
 ### provider
-在Reqiest Header里面传入`X-Provider`可以指定provider
+Request Header里面传入`X-Provider`可以指定provider。  
+不指定Provider的情况下如果调用失败会尝试下一个Provider，直到成功或者没有Provider可用，指定Provider的情况下如果调用失败会直接返回失败。
 ### 环境变量
 
 
