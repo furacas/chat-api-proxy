@@ -43,6 +43,11 @@ func init() {
 		allProviders = append(allProviders, &ava.AvaProvider{})
 	}
 
+	if os.Getenv("CHURCHLESS_ENABLED") != "false" {
+		log.Printf("churchless enabled")
+		allProviders = append(allProviders, &churchless.ChurchlessProvider{})
+	}
+
 	if os.Getenv("CHATANYWHERE_KEY") != "" {
 		log.Printf("ChatAnyWhereProvider enabled")
 		allProviders = append(allProviders, &chatanywhere.ChatAnyWhereProvider{})
@@ -51,11 +56,6 @@ func init() {
 	if os.Getenv("CHIMERA_KEY") != "" {
 		log.Printf("ChimeraProvider enabled")
 		allProviders = append(allProviders, &chimera.ChimeraProvider{})
-	}
-
-	if os.Getenv("CHURCHLESS_ENABLED") != "" {
-		log.Printf("churchless enabled")
-		allProviders = append(allProviders, &churchless.ChurchlessProvider{})
 	}
 
 }
