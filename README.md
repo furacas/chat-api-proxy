@@ -8,8 +8,10 @@
 [xyhelper](https://xyhelper.cn/)  
 chatgpt  
 [ava](https://ava-ai-ef611.web.app/)  
+[churchless](https://free.churchless.tech/)   
 [chimeragpt](https://chimeragpt.adventblocks.cc/)  
-[chatanywhere](https://github.com/chatanywhere/GPT_API_free)  
+[chatanywhere](https://github.com/chatanywhere/GPT_API_free)   
+ 
 ## 使用方法
 
 ```bash
@@ -44,14 +46,15 @@ Request Header里面传入`X-Provider`可以指定provider。
 ### 环境变量
 
 
-| 变量名            | 默认  | 必填 | 备注                                                                                  |
-|------------------|-------|------|---------------------------------------------------------------------------------------|
-| FAKEOPEN_ENABLED | true  | 否   | 启用[fakeopen](https://ai.fakeopen.com/)                                             |
-| XYHELPER_ENABLED | true  | 否   | 启用[xyhelper](https://xyhelper.cn/)                                                  |
-| CHATGPT_ENABLED  | true  | 否   | 启用chatgpt                                                                           |
-| AVA_ENABLED      | true  | 否   | 启用[ava](https://ava-ai-ef611.web.app/)                                              |
-| CHATANYWHERE_KEY |       | 否   | [chatanywhere](https://github.com/chatanywhere/GPT_API_free) sk                       |
-| CHIMERA_KEY      |       | 否   | [chimeragpt](https://chimeragpt.adventblocks.cc/) sk                                  |
+| 变量名            | 默认   | 必填 | 备注                                                                                  |
+|------------------|------|------|---------------------------------------------------------------------------------------|
+| FAKEOPEN_ENABLED | true | 否   | 启用[fakeopen](https://ai.fakeopen.com/)                                             |
+| XYHELPER_ENABLED | true | 否   | 启用[xyhelper](https://xyhelper.cn/)                                                  |
+| CHATGPT_ENABLED  | true | 否   | 启用chatgpt                                                                           |
+| AVA_ENABLED      | true | 否   | 启用[ava](https://ava-ai-ef611.web.app/)                                              |
+| CHURCHLESS_ENABLED | true | 否   | 启用  [churchless](https://free.churchless.tech/)                               |
+| CHATANYWHERE_KEY |      | 否   | [chatanywhere](https://github.com/chatanywhere/GPT_API_free) sk                       |
+| CHIMERA_KEY      |      | 否   | [chimeragpt](https://chimeragpt.adventblocks.cc/) sk                                  |
 
 
 

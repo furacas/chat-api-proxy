@@ -6,6 +6,7 @@ import (
 	"chat-api-proxy/providers/chatanywhere"
 	"chat-api-proxy/providers/chatgpt"
 	"chat-api-proxy/providers/chimera"
+	"chat-api-proxy/providers/churchless"
 	"chat-api-proxy/providers/fakeopen"
 	"chat-api-proxy/providers/xyhelper"
 	"fmt"
@@ -50,6 +51,11 @@ func init() {
 	if os.Getenv("CHIMERA_KEY") != "" {
 		log.Printf("ChimeraProvider enabled")
 		allProviders = append(allProviders, &chimera.ChimeraProvider{})
+	}
+
+	if os.Getenv("CHURCHLESS_ENABLED") != "" {
+		log.Printf("churchless enabled")
+		allProviders = append(allProviders, &churchless.ChurchlessProvider{})
 	}
 
 }
